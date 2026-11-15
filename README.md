@@ -3,6 +3,10 @@
 An ArcGIS Pro Python toolbox for estimating observation coverage
 along geological and mining exploration profiles.
 
+## Tool Interface
+
+![Profile Coverage Analysis tool in ArcGIS Pro](images/tool-interface.png)
+
 ## Features
 
 - Match observations by profile name or nearest line
