@@ -46,7 +46,7 @@ See [TERMS_OF_USE.txt](TERMS_OF_USE.txt).
 
 ## Developer
 
-سید علی اکبر سجادی
+Seyed Aliakbar Sajjadi
 
 - Email: SaSajjadi@outlook.com
 - LinkedIn: https://www.linkedin.com/in/aliakbar-sajjadi/
