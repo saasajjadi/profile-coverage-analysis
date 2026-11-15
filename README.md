@@ -3,6 +3,8 @@
 An ArcGIS Pro Python toolbox for estimating observation coverage
 along geological and mining exploration profiles.
 
+**[Download the latest beta release](https://github.com/saasajjadi/profile-coverage-analysis/releases)**
+
 ## Tool Interface
 
 ![Profile Coverage Analysis tool in ArcGIS Pro](images/tool-interface.png)
