@@ -1,0 +1,33 @@
+PROFILE COVERAGE ANALYSIS — SHORT PARAMETER GUIDE
+Developer: سید علی اکبر سجادی | Version 6.3
+
+INPUTS
+1. Observation points: Select the point layer for the reporting period. Active selection and definition query apply; dates are not filtered automatically.
+2. Points - profile name field (name mode): Select the text field containing the profile name for each point. Required only for By Profile Name.
+3. Profile lines: Select one line layer, with one valid, singlepart, nonzero-length feature per profile. Active selection and definition query apply.
+4. Profiles - profile name field (name mode): Select the text field identifying each profile; names must be unique and nonblank. Required only for By Profile Name.
+5. Optional profile grouping field: Select a text field on the profile layer, such as material, to produce group summaries. Leave blank for the overall total only.
+6. Output file geodatabase: Select an existing writable file geodatabase ending in .gdb, not an ordinary folder.
+7. Folder for Excel and run notes: Select an existing writable folder for the XLSX report and TXT run notes.
+8. Point assignment method: By Profile Name matches the two text fields. By Nearest Line assigns points to the nearest selected line and creates PROFILE_<source OID> labels in outputs.
+9. Optional max distance in metres: Used only in nearest-line mode. Enter a positive distance to reject points farther away, or leave blank for no distance limit. Inspect distances and ties.
+10. Optional exact map name: Enter an exact map name to add covered lines to that map; otherwise leave blank. Review symbology and save the project manually.
+11. Optional exact layout name: Enter the exact layout name only if updating a layout text element. Provide the text element name as well.
+12. Optional exact layout text element name: Enter the exact name of an existing text element in the specified layout. The tool replaces its text. Review layout and save the project manually.
+13. Analysis coordinate system: Choose an appropriate projected CRS with metre units. If blank, the tool uses the output CRS environment, otherwise the line CRS if projected/metre, then the point CRS if projected/metre. Verify suitability for the study area.
+14. Optional point geographic transformation: If required, enter the exact ArcGIS transformation name for point-source CRS to analysis CRS; leave blank when none is required. Select a method appropriate for the data and area.
+15. Optional profile geographic transformation: Same as above, for the profile line-source CRS. A missing or invalid required transformation stops the tool and reports candidates.
+
+OUTPUTS (GENERATED AUTOMATICALLY)
+Profile statistics: Per-profile line, source OID, total and estimated covered/uncovered lengths and percentages, observation count and QA distances.
+Point audit: Valid-geometry point output with assignment status, source/profile IDs, offsets and nearest-line diagnostics. Points with missing geometry are in Point issues instead.
+Covered lines: Estimated line segments between the first and last matched point positions.
+Summary table: Group totals if a grouping field is selected, plus the overall total.
+Point issues: Source OIDs and status for missing geometry, missing/unmatched names, nearest ties, and points outside a specified search radius.
+Excel report: Formatted coverage summary and notes; editing its cells does not change GIS outputs.
+Run notes: Input, CRS, transformation, assignment and limitations for the run.
+
+INTERPRETATION AND CAUTIONS
+Covered is the estimated distance along a profile between its first and last matched observations; gaps between observations are included. Uncovered is the remainder, not confirmed untraversed distance. Zero or one matched point gives zero estimated span. Overlapping profiles are counted separately. Results are 2D planar; long projected lines are not automatically densified. Review CRS, assignments and source geometry. Automatically generated OID labels may change if source OIDs change.
+
+For on-screen help, open the separate "Parameter Guide | راهنمای فیلدهای ابزار" tool in this toolbox and click Run. The guide appears in its Geoprocessing messages. This is not a parameter tooltip.

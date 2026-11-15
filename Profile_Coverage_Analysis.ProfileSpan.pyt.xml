@@ -1,0 +1,383 @@
+<?xml version='1.0' encoding='utf-8'?>
+<metadata xml:lang="en">
+  <Esri>
+    <ArcGISFormat>1.0</ArcGISFormat>
+    <SyncOnce>TRUE</SyncOnce>
+  </Esri>
+  <tool name="ProfileSpan" displayname="Profile Coverage Analysis | تحلیل پوشش پروفیل‌های پیمایش" toolboxalias="generalprofilespan">
+    <parameters>
+      <param displayname="Observation points" name="points" expression="points" datatype="Feature Layer" direction="Input" type="Required">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Select the observation point layer for the intended reporting period. Active selections and definition queries apply; dates are not filtered automatically.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Select the observation point layer for the intended reporting period. Active selections and definition queries apply; dates are not filtered automatically.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Points - profile name field (name mode)" name="point_profile_name" expression="point_profile_name" datatype="Field" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose the text field containing each point’s profile name. Required only for By Profile Name.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose the text field containing each point’s profile name. Required only for By Profile Name.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Profile lines" name="profiles" expression="profiles" datatype="Feature Layer" direction="Input" type="Required">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Select the profile line layer. Each profile must be one valid, nonzero-length, singlepart line. Active selections and definition queries apply.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Select the profile line layer. Each profile must be one valid, nonzero-length, singlepart line. Active selections and definition queries apply.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Profiles - profile name field (name mode)" name="line_profile_name" expression="line_profile_name" datatype="Field" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose the text field containing the unique, nonblank profile name for each line. Required only for By Profile Name.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose the text field containing the unique, nonblank profile name for each line. Required only for By Profile Name.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Optional: profile grouping field (for example, material)" name="group_field" expression="group_field" datatype="Field" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optionally choose a text field, such as material, to summarize results by group. Leave blank for an overall total only.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optionally choose a text field, such as material, to summarize results by group. Leave blank for an overall total only.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Output file geodatabase" name="out_gdb" expression="out_gdb" datatype="Workspace" direction="Input" type="Required">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose an existing writable file geodatabase (.gdb) for GIS outputs; an ordinary folder is not a geodatabase.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose an existing writable file geodatabase (.gdb) for GIS outputs; an ordinary folder is not a geodatabase.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Folder for Excel and run notes" name="out_folder" expression="out_folder" datatype="Folder" direction="Input" type="Required">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose an existing writable folder for the Excel report and run notes.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose an existing writable folder for the Excel report and run notes.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Point assignment method" name="assignment_method" expression="assignment_method" datatype="String" direction="Input" type="Required">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>By Profile Name matches the chosen text fields. By Nearest Line assigns points to their nearest line and generates PROFILE_&lt;source OID&gt; labels in outputs.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>By Profile Name matches the chosen text fields. By Nearest Line assigns points to their nearest line and generates PROFILE_&lt;source OID&gt; labels in outputs.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Optional: max distance in metres (nearest-line mode)" name="max_distance_m" expression="max_distance_m" datatype="Double" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Nearest-line mode only. Enter a positive maximum distance in metres to exclude farther points, or leave blank for no limit. Review offsets and nearby-line ambiguity.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Nearest-line mode only. Enter a positive maximum distance in metres to exclude farther points, or leave blank for no limit. Review offsets and nearby-line ambiguity.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Optional: exact map name for span layer" name="map_name" expression="map_name" datatype="String" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional. Enter the exact name of one map to add the covered-line output. Review its appearance and save the project manually.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional. Enter the exact name of one map to add the covered-line output. Review its appearance and save the project manually.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Optional: exact layout name" name="layout_name" expression="layout_name" datatype="String" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional. Enter the exact layout name to update an existing text element. Enter the text element name too.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional. Enter the exact layout name to update an existing text element. Enter the text element name too.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Optional: exact layout text element name" name="text_element" expression="text_element" datatype="String" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional. Enter the exact name of an existing text element in the specified layout; its text will be replaced. Review the layout and save the project manually.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional. Enter the exact name of an existing text element in the specified layout; its text will be replaced. Review the layout and save the project manually.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Analysis coordinate system (projected, metres)" name="analysis_crs" expression="analysis_crs" datatype="Coordinate System" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose a projected CRS in metres suitable for the study area. If blank, the tool tries the output CRS environment, then a suitable line or point CRS. Check suitability yourself.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Choose a projected CRS in metres suitable for the study area. If blank, the tool tries the output CRS environment, then a suitable line or point CRS. Check suitability yourself.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Optional: point geographic transformation" name="point_transform" expression="point_transform" datatype="String" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional geographic transformation from the point CRS to the analysis CRS. When needed, enter an exact suitable ArcGIS transformation name; see the tool message for candidates.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional geographic transformation from the point CRS to the analysis CRS. When needed, enter an exact suitable ArcGIS transformation name; see the tool message for candidates.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Optional: profile geographic transformation" name="line_transform" expression="line_transform" datatype="String" direction="Input" type="Optional">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional geographic transformation from the profile CRS to the analysis CRS. When needed, enter an exact suitable ArcGIS transformation name; see the tool message for candidates.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Optional geographic transformation from the profile CRS to the analysis CRS. When needed, enter an exact suitable ArcGIS transformation name; see the tool message for candidates.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Profile statistics" name="profile_stats" expression="profile_stats" datatype="Feature Class" direction="Output" type="Derived">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created line output with per-profile length, estimated coverage and quality-control statistics.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created line output with per-profile length, estimated coverage and quality-control statistics.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Point audit" name="point_audit" expression="point_audit" datatype="Feature Class" direction="Output" type="Derived">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created point output with assignments, offsets and nearest-line diagnostics. Records with missing geometry appear in Point issues instead.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created point output with assignments, offsets and nearest-line diagnostics. Records with missing geometry appear in Point issues instead.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Covered lines" name="span_lines" expression="span_lines" datatype="Feature Class" direction="Output" type="Derived">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created line output showing the estimated span between first and last matched observations for each profile.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created line output showing the estimated span between first and last matched observations for each profile.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Summary table" name="summary_table" expression="summary_table" datatype="Table" direction="Output" type="Derived">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created table with group totals when grouped, and the overall total.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created table with group totals when grouped, and the overall total.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Point issues" name="point_issues" expression="point_issues" datatype="Table" direction="Output" type="Derived">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created table listing source IDs and reasons for observations that could not be used, including missing geometry and ties.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created table listing source IDs and reasons for observations that could not be used, including missing geometry and ties.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Excel report" name="excel_report" expression="excel_report" datatype="File" direction="Output" type="Derived">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created formatted Excel summary and notes. Editing Excel values does not change GIS outputs.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created formatted Excel summary and notes. Editing Excel values does not change GIS outputs.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+      <param displayname="Run notes" name="run_notes" expression="run_notes" datatype="File" direction="Output" type="Derived">
+        <dialogReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created text file recording input information, CRS, transformations, assignment settings and limitations.</P>
+            </DIV>
+          </DIV>
+        </dialogReference>
+        <pythonReference>
+          <DIV STYLE="text-align:Left;">
+            <DIV>
+              <P>Automatically created text file recording input information, CRS, transformations, assignment settings and limitations.</P>
+            </DIV>
+          </DIV>
+        </pythonReference>
+      </param>
+    </parameters>
+    <summary>
+      <DIV STYLE="text-align:Left;">
+        <DIV>
+          <P>Estimates the along-profile span between the first and last matched observations and summarizes profile coverage. Gaps within the span are included.</P>
+        </DIV>
+      </DIV>
+    </summary>
+    <usage>
+      <DIV STYLE="text-align:Left;">
+        <DIV>
+          <P>Choose a locally appropriate projected metre-based CRS, check point-to-profile assignments and verify results. Overlapping profiles are counted separately; the estimated span does not prove continuous traversal.</P>
+        </DIV>
+      </DIV>
+    </usage>
+  </tool>
+  <dataIdInfo>
+    <idCitation>
+      <resTitle>Profile Coverage Analysis | تحلیل پوشش پروفیل‌های پیمایش</resTitle>
+    </idCitation>
+    <idCredit>Developed by سید علی اکبر سجادی; SaSajjadi@outlook.com; https://www.linkedin.com/in/aliakbar-sajjadi/; https://github.com/saasajjadi</idCredit>
+  </dataIdInfo>
+</metadata>

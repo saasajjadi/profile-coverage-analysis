@@ -1,0 +1,13 @@
+PROFILE COVERAGE ANALYSIS 6.3 — INSTALLATION AND HELP CHECK
+
+Files that must stay together in the same ordinary folder, with exact names:
+  Profile_Coverage_Analysis.pyt
+  Profile_Coverage_Analysis.ProfileSpan.pyt.xml
+
+The XML is tool-specific metadata containing English parameter descriptions; the .pyt contains the toolbox, tool code, terms, and a separate backup Parameter Guide. Do not open or add the XML as a toolbox. To distribute or move the tool, keep the pair together. If the toolbox file is renamed, the prefix of the XML file must match its new basename and the tool class name must remain ProfileSpan.
+
+1. Extract the complete ZIP to a writable, permanent folder. In ArcGIS Pro Catalog > Toolboxes, use Add Toolbox and select the .pyt file.
+2. Open Profile Coverage Analysis. Move the pointer to each parameter's information icon and check the English description. Derived outputs may not appear as input controls. Test the input fields, especially both assignment methods and CRS fields.
+3. If an older copy is already connected, remove that toolbox connection, add the new .pyt from the extracted folder, refresh Catalog and reopen the tool; if needed restart ArcGIS Pro. Confirm the XML remains next to the toolbox and the names have not changed.
+4. This metadata has been checked for XML well-formedness and parameter-name consistency, but has not been tested in ArcGIS Pro. If descriptions do not appear, right-click the tool and use Edit Metadata to inspect its Syntax documentation; report the ArcGIS Pro version, screenshot and generated metadata XML. The standalone Parameter Guide tool and PARAMETER_GUIDE.txt are included as a backup, not a substitute for verifying the information icons.
+5. Test both assignment methods with small known data, verify CRS/transformation handling and outputs, and review estimates before public release. openpyxl must be available in the ArcGIS Pro Python environment. See the Persian guide and TERMS_OF_USE.txt.

@@ -1,0 +1,12 @@
+TERMS OF USE — Profile Coverage Analysis
+
+Developer: سید علی اکبر سجادی
+Email: SaSajjadi@outlook.com
+LinkedIn: https://www.linkedin.com/in/aliakbar-sajjadi/
+GitHub: https://github.com/saasajjadi
+
+1. Personal, educational, research, and commercial use of this tool is permitted.
+2. Modification of the source code and redistribution of either the original or modified version are permitted, provided that the original developer's name is retained. Changes must be identified, and a modified version must not be presented as the official version.
+3. Results are estimates and must be checked against field data and professional judgment. Covered does not, by itself, establish continuous traversal or complete geological coverage.
+4. The tool is provided without a warranty that it is suitable for every project. Users are responsible for checking inputs, settings, and results before using them for decisions.
+5. ArcGIS Pro and any other required software are subject to their own terms and licenses.
